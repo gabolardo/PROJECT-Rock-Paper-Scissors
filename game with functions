@@ -1,0 +1,89 @@
+import random
+
+#print de bienvenida al juego 
+print('¡BIENVENIDO A PIEDRA, PAPEL, TIJERA: ¿PODRAS VENCER A LA COMPUTADORA?')
+
+#funcion para definir las opciones de juego del usuario (validas y no validas)
+def choose_options():
+  options = ('piedra', 'papel', 'tijera')
+  user_option = input('Elije: piedra, papel o tijera => ')
+  user_option = user_option.lower()
+  
+  if not user_option in options:
+    print('Esa opcion no es valida :(, ¡prueba otra vez!')
+    # continue
+    return None, None
+
+  computer_option = random.choice(options)
+
+  print('User option =>', user_option)
+  print('Computer Option =>', computer_option)
+  return user_option, computer_option
+
+#funcion para definir las reglas y la logica del juego 
+def check_rules(user_option, computer_option, user_wins, computer_wins):
+  if user_option == computer_option:
+    print('Empate!')
+  elif user_option == 'piedra':
+    if computer_option == 'tijera':
+      print('piedra gana a tijera')
+      print('user gano!')
+      user_wins += 1
+    else:
+      print('papel gana a piedra')
+      print('computer gano!')
+      computer_wins += 1
+  elif user_option == 'papel':
+    if computer_option == 'piedra':
+      print('papel gana a piedra')
+      print('user gano!')
+      user_wins += 1
+    else:
+      print('tijeras gana a papel')
+      print('computer gano!')
+      computer_wins += 1
+  elif user_option == 'tijera':
+    if computer_option == 'papel':
+      print('tijera gana a papel')
+      print('user gano!')
+      user_wins += 1
+    else:
+      print('piedra gana a tijera')
+      print('computer gano!')
+      computer_wins += 1
+  return user_wins, computer_wins
+
+#funcion para contar las rondas ganadas y definir el vencedor
+def check_winner(user_wins, computer_wins):  
+  if user_wins == 3:
+    print('¡FELICIDADES VENCISTE A LA COMPUTADORA!')
+    exit()
+  
+  if computer_wins == 3:
+    print('PERDISTE :(, LA COMPUTADORA GANA')
+    exit()
+#funcion main 
+def run_game():
+  #contadores de rondas ganadas
+  computer_wins = 0
+  user_wins = 0
+  #contador de rondas
+  rounds = 1
+  while True:
+    print('*' * 10)
+    print('ROUND', rounds)
+    print('*' * 10)
+  
+    print('Computer Wins => ' , computer_wins)
+    print('User Wins => ', user_wins)
+    rounds += 1  
+
+    #Almacena los valores retornados por la funcion
+    user_option, computer_option = choose_options()
+    
+    user_wins, computer_wins = check_rules(user_option, computer_option, user_wins, computer_wins)
+    
+    check_winner(user_wins, computer_wins)
+   
+
+run_game()
